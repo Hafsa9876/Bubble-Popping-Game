@@ -34,9 +34,143 @@ clrscr:
 	pop es
 	ret
 
+	
+		
+		scrollup: push bp
+		 mov bp,sp
+		 push ax
+		 push cx
+		 push si
+		 push di
+		 push es
+		 push ds
+		 mov ax, 80 ; load chars per row in ax
+		 mul byte [bp+4] ; calculate source position
+		 mov si, ax ; load source position in si
+		 push si ; save position for later use
+		 shl si, 1 ; convert to byte offset
+		 mov cx, 2000 ; number of screen locations
+		 sub cx, ax ; count of words to move
+		 mov ax, 0xb800
+		 mov es, ax ; point es to video base
+		 mov ds, ax ; point ds to video base
+		 xor di, di ; point di to top left column
+		 cld ; set auto increment mode
+		 rep movsw ; scroll up
 
+		 mov ax, 0x0720 ; space in normal attribute
+		 pop cx ; count of positions to clear
+		 rep stosw ; clear the scrolled space
+		 pop ds
+		 pop es
+		 pop di
+		 pop si
+		 pop cx
+		 pop ax
+		 pop bp
+		 ret 2 
+		 
+		 
+
+		printrec:
+		push ax
+		push bx
+		push cx
+		push dx
+		mov ah,06h
+		mov al,3
+		mov bh,byte[colour]
+		mov ch,byte[top_row]  ;top left row
+		mov cl,byte[top_col]  ;top left col
+		mov dh,25;bottom right row
+		mov dl,byte[bot_col]  ;bottom right col
+		int 10h
+		mov cx,14
+	l1:mov ax,1
+		push ax 
+		call scrollup
+		;mnaging speed
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		call sleep
+		sub cx,1
+		loop l1
+		pop dx
+		pop cx
+		pop bx
+		pop ax
+		ret
+		
+		
+		
+	print_sc:
+		;1st
+		mov byte[top_col],34
+		mov byte[top_row],10	
+		mov byte[bot_col],39
+		mov byte[colour],15h
+		call printrec	
+
+		;2nd
+		mov byte[top_col],21
+		mov byte[top_row],10	
+		mov byte[bot_col],26
+		mov byte[colour],33h
+		call printrec	
+		
+		;3rth
+		mov byte[top_col],60
+		mov byte[top_row],20
+		mov byte[bot_col],65
+		mov byte[colour],64h
+		call printrec
+		;4th
+		mov byte[top_col],7
+		mov byte[top_row],7	
+		mov byte[bot_col],12
+		mov byte[colour],22h
+		call printrec	
+		;5th
+		mov byte[top_col],43
+		mov byte[top_row],7	
+		mov byte[bot_col],48
+		mov byte[colour],44h
+		call printrec
+		;6th
+		mov byte[top_col],23
+		mov byte[top_row],7	
+		mov byte[bot_col],28
+		mov byte[colour],51h
+		call printrec
+		;7th
+		mov byte[top_col],50
+		mov byte[top_row],7	
+		mov byte[bot_col],55
+		mov byte[colour],33h
+		call printrec
+	
+		ret
+		
+		main_print:
+		push cx
+		mov cx,6
+		lop1:call print_sc
+		sub cx,1
+		loop lop1
+		pop cx
+		ret
 start:
 	call clrscr
+	call main_print
 
 mov ax,0x4c00
 int 0x21
