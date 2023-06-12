@@ -1,10 +1,45 @@
 [org 0x0100]
 jmp start
+e1:db '     _____          __  __ ______     '  
+e2:db '    / ____|   /\   |  \/  |  ____|    '        
+e3:db '   | |  __   /  \  | \  / | |__       '        
+e4:db '   | | |_ | / /\ \ | |\/| |  __|      '
+e5:db '   | |__| |/ ____ \| |  | | |____     '
+e6:db '    \_____/_/    \_\_|  |_|______|    '
+e7:db '     _____ ___      ___ ______ ___    '
+e8:db '    / ___ \\  \    /  /|  ____|  _ \  '
+e9:db '   | |   | |\  \  /  / | |__  | |_| | '    
+e10:db'   | |   | | \  \/  /  |  __| |  _ /  '
+e11:db'   | |___| |  \    /   | |____| |\ \  '
+e12:db'    \_____/    \__/    |______|_| \_\ '
+e13:db'                                      '  		
+e14:db'                                      '  		
+e15:db'                                      '  			         
+len_over:dw 40
 top_row: db 0
 top_col: db 0
 bot_row: db 0
 bot_col: db 0
 colour: db 0
+msg: db 'Time:  :'
+len: dw 8
+msg1: db 'Score: '
+len1: dw 7
+msg_sl: db '-'
+char : db ' '
+length:dw 1
+msg2: db 'x '
+len2: dw 1
+row_inp:dw 0
+row_index: db 0
+col_index: db 0
+score : dw 00
+Time_m:dw 0
+Time_s1:dw 0
+Time_s2:dw 0
+comp:dw 0
+old_kbisr: dd 0
+temp:dw 0
 
 	; subroutine to clear the screen
 	sleep: push cx
