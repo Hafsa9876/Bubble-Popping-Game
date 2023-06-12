@@ -12,6 +12,12 @@ colour: db 0
 	delay: loop delay
 	pop cx
 	ret
+		sec_delay:
+    MOV     CX, 07H
+	MOV     DX, 0xa120
+	MOV     AH, 86H
+	INT     15H
+	ret
 
 clrscr:
 
