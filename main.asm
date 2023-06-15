@@ -116,7 +116,21 @@ beep:
 	call printnum_s1
 	ret
 
-
+	
+	t3:add word[Time_m],1
+	call sec_delay
+	mov ax,[Time_m]
+	push ax
+	call printnum_m
+	mov word[Time_s1],0
+		mov word[Time_s2],0
+	mov ax,[Time_s1]
+	push ax
+	call printnum_s1
+		mov ax,[Time_s2]
+	push ax
+	call printnum_s2
+	ret
 
 
 
