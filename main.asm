@@ -101,7 +101,20 @@ beep:
 		 pop cx
 		   ret
 		   
+		t1:
+	add word[Time_s2],1
+	call sec_delay
+	mov ax,[Time_s2]
+	push ax
+	call printnum_s2
+	ret
 	
+	t2:add word[Time_s2],1
+	call sec_delay
+	mov ax,[Time_s2]
+	push ax
+	call printnum_s1
+	ret
 
 
 
