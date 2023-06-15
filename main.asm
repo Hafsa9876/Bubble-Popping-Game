@@ -94,7 +94,14 @@ beep:
       ret
 
 
-
+	add_score:
+		 push cx
+		 mov cx,0
+		 add cx,10
+		 pop cx
+		   ret
+		   
+	
 
 
 
