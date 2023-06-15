@@ -131,7 +131,17 @@ beep:
 	push ax
 	call printnum_s2
 	ret
-
+	update_time:
+	push ax
+	push cx
+	push si
+	cmp word[Time_m],2
+	je m_end
+	cmp word[Time_m],1
+	jge m2
+	cmp word[Time_s2],9
+	jge t_l2
+	
 
 
 
