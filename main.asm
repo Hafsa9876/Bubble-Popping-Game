@@ -292,7 +292,7 @@ clrscr:
 	
 		ret
 	
-		printnum_m: push bp 
+			 printnum_s1: push bp 
 		 mov bp, sp
 		 push es
 		 push ax
@@ -305,19 +305,19 @@ clrscr:
 		 mov ax, [bp+4] ; load number in ax
 		 mov bx, 10 ; use base 10 for division
 		 mov cx, 0 ; initialize count of digits
-		nextdigitpm: mov dx, 0 ; zero upper half of dividend
+		nextdigitps1: mov dx, 0 ; zero upper half of dividend
 		 div bx ; divide by 10
 		 add dl, 0x30 ; convert digit into ascii value
 		 push dx ; save ascii value on stack
 		 inc cx ; increment count of values
 		 cmp ax, 0 ; is the quotient zero
-		 jnz nextdigitpm ; if no divide it again
-		 mov di, 980 ; point di to top left column
-		 nextpospm: pop dx ; remove a digit from the stack
+		 jnz nextdigitps1 ; if no divide it again
+		 mov di, 984 ; point di to top left column
+		 nextposps1: pop dx ; remove a digit from the stack
 		 mov dh, 00001011b ; use normal attribute
 		 mov [es:di], dx ; print char on screen
 		 add di, 2 ; move to next screen location
-		 loop nextpospm ; repeat for all digits on stack
+		 loop nextposps1 ; repeat for all digits on stack
 		 pop di
 		 pop dx
 		 pop cx
@@ -326,7 +326,6 @@ clrscr:
 		 pop es
 		 pop bp
 		 ret 2 	
-		
 		main_print:
 		push cx
 		mov cx,6
