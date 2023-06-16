@@ -327,7 +327,6 @@ clrscr:
 		 pop bp
 		 ret 2 	
 		
-		
 		main_print:
 		push cx
 		mov cx,6
