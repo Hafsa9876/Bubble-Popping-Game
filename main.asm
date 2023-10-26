@@ -644,7 +644,26 @@ scrollup: push ax
 				
 				k_end:
 				ret
+cmp_z:
 		
+		mov ch,0  ;row
+			l05:mov cl,20 ;col
+				l6:mov dh, ch
+					mov dl, cl
+					mov bh, 0
+					mov ah, 2
+					int 10h
+					mov bh,0
+					mov ah,08h
+					int 10h
+					cmp al,'z'
+					je ptnt_z
+					add cl,1
+					cmp cl,78
+					jne l6
+				add ch,1
+				cmp ch,24
+				jne l05		
 start:
 	call clrscr
 	call main_print
