@@ -591,6 +591,60 @@ scrollup: push ax
 		
 		a_end:
 		ret	
+		cmp_k:
+		
+		mov ch,0  ;row
+			l04:mov cl,20 ;col
+				l5:mov dh, ch
+					mov dl, cl
+					mov bh, 0
+					mov ah, 2
+					int 10h
+					mov bh,0
+					mov ah,08h
+					int 10h
+					cmp al,'k'
+					je ptnt_k
+					add cl,1
+					cmp cl,78
+					jne l5
+				add ch,1
+				cmp ch,24
+				jne l04
+		jmp k_end
+						ptnt_k:		
+				add word[score],10
+				
+				 mov ax,[score]
+				 push ax
+				 call printnum
+				  call beep
+				mov byte[row_index],ch
+				mov byte[col_index],cl
+				sub byte[col_index],3
+				sub byte[row_index],1
+				mov si,0
+				j4:mov dh, byte[row_index]
+				mov dl, byte[col_index]
+				mov bh, 0
+				mov ah, 2
+				int 10h
+				
+				mov al,'*'
+				mov bh,0
+				mov bl,10000010b
+				mov cx,6
+				mov ah,09h
+				int 10h
+				add byte[row_index],1
+				add si,1
+				cmp si,3
+				jne j4
+				
+				
+				k_end:
+				ret
+		
 start:
 	call clrscr
 	call main_print
