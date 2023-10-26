@@ -864,7 +864,38 @@ cmp_z:
 		mov sp,bp
 		pop bp
 		ret 6
+			print_sc:
+	push ax
+	push cx
+		;1st
+		mov byte[top_col],44
+		mov byte[top_row],10	
+		mov byte[bot_col],49
+		mov byte[colour],15h
+		mov ax,47
+		push ax
+		mov ax,23
+		push ax
+		mov ax,00011111b
+		push ax
+		mov byte[char],'a'
+		call printrec	
 		
+		
+		;2nd
+		mov byte[top_col],31
+		mov byte[top_row],10	
+		mov byte[bot_col],36
+		mov byte[colour],33h
+		mov ax,34
+		push ax
+		mov ax,23
+		push ax
+		mov ax,00111111b
+		push ax
+		mov byte[char],'s'
+		call printrec	
+ret
 start:
 	call clrscr
 	call main_print
