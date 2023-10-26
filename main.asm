@@ -697,6 +697,59 @@ cmp_z:
 				
 				z_end:
 				ret
+	cmp_l:
+		mov ch,0  ;row
+			l06:mov cl,20 ;col
+				l7:mov dh, ch
+					mov dl, cl
+					mov bh, 0
+					mov ah, 2
+					int 10h
+					mov bh,0
+					mov ah,08h
+					int 10h
+					cmp al,'l'
+					je ptnt_l
+					add cl,1
+					cmp cl,78
+					jne l7
+				add ch,1
+				cmp ch,24
+				jne l06
+		jmp l_end
+						ptnt_l:		
+				add word[score],10
+				
+				 mov ax,[score]
+				 push ax
+				 call printnum
+				 call beep
+				mov byte[row_index],ch
+				mov byte[col_index],cl
+				sub byte[col_index],3
+				sub byte[row_index],1
+				mov si,0
+				j6:mov dh, byte[row_index]
+				mov dl, byte[col_index]
+				mov bh, 0
+				mov ah, 2
+				int 10h
+				
+				mov al,'*'
+				mov bh,0
+				mov bl,10000101b
+				mov cx,6
+				mov ah,09h
+				int 10h
+				add byte[row_index],1
+				add si,1
+				cmp si,3
+				jne j6
+				
+				
+				l_end:
+				ret
+		
 start:
 	call clrscr
 	call main_print
