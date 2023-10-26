@@ -398,6 +398,77 @@ clrscr:
 		 pop es
 		 pop bp
 		 ret 2 
+ printnum_s2: push bp 
+		 mov bp, sp
+		 push es
+		 push ax
+		 push bx
+		 push cx
+		 push dx
+		 push di
+		 mov ax, 0xb800
+		 mov es, ax ; point es to video base
+		 mov ax, [bp+4] ; load number in ax
+		 mov bx, 10 ; use base 10 for division
+		 mov cx, 0 ; initialize count of digits
+		nextdigitp: mov dx, 0 ; zero upper half of dividend
+		 div bx ; divide by 10
+		 add dl, 0x30 ; convert digit into ascii value
+		 push dx ; save ascii value on stack
+		 inc cx ; increment count of values
+		 cmp ax, 0 ; is the quotient zero
+		 jnz nextdigitp ; if no divide it again
+		 mov di, 986 ; point di to top left column
+		 nextposp: pop dx ; remove a digit from the stack
+		 mov dh, 00001011b ; use normal attribute
+		 mov [es:di], dx ; print char on screen
+		 add di, 2 ; move to next screen location
+		 loop nextposp ; repeat for all digits on stack
+		 pop di
+		 pop dx
+		 pop cx
+		 pop bx
+		 pop ax
+		 pop es
+		 pop bp
+		 ret 2 
+	
+	printnum2: push bp 
+		 mov bp, sp
+		 push es
+		 push ax
+		 push bx
+		 push cx
+		 push dx
+		 push di
+		 mov ax, 0xb800
+		 mov es, ax ; point es to video base
+		 mov ax, [bp+4] ; load number in ax
+		 mov bx, 10 ; use base 10 for division
+		 mov cx, 0 ; initialize count of digits
+		nextdigit2: mov dx, 0 ; zero upper half of dividend
+		 div bx ; divide by 10
+		 add dl, 0x30 ; convert digit into ascii value
+		 push dx ; save ascii value on stack
+		 inc cx ; increment count of values
+		 cmp ax, 0 ; is the quotient zero
+		 jnz nextdigit2 ; if no divide it again
+		 mov di, 2776 ; point di to top left column
+		 nextpos2: pop dx ; remove a digit from the stack
+		 mov dh, 00111111b ; use normal attribute
+		 mov [es:di], dx ; print char on screen
+		 add di, 2 ; move to next screen location
+		 loop nextpos2 ; repeat for all digits on stack
+		 pop di
+		 pop dx
+		 pop cx
+		 pop bx
+		 pop ax
+		 pop es
+		 pop bp
+		 ret 2 
+	
+	
 start:
 	call clrscr
 	call main_print
