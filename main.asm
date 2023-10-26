@@ -921,6 +921,32 @@ cmp_z:
 		push ax
 		mov byte[char],'k'
 		call printrec	
+;5th
+		mov byte[top_col],53
+		mov byte[top_row],7	
+		mov byte[bot_col],58
+		mov byte[colour],44h
+		mov ax,56
+		push ax
+		mov ax,23
+		push ax
+		mov ax,01001111b
+		push ax
+		mov byte[char],'z'
+		call printrec
+		;6th
+		mov byte[top_col],33
+		mov byte[top_row],7	
+		mov byte[bot_col],38
+		mov byte[colour],51h
+		mov ax,36
+		push ax
+		mov ax,23
+		push ax
+		mov ax,01011111b
+		push ax
+		mov byte[char],'l'
+		call printrec
 ret
 start:
 	call clrscr
