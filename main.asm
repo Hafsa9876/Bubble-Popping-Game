@@ -468,7 +468,77 @@ clrscr:
 		 pop bp
 		 ret 2 
 	
-	
+scrollup: push ax
+		push bx
+		push cx
+		push dx
+		mov ah,6
+		mov al,1 ; no of lines to scroll up
+		mov bh,0 ; colour of bg
+		mov ch,0
+		mov cl,20
+		mov dl,79
+		mov dh,24 
+		int 10h  
+
+		 pop dx
+		 pop cx
+		 pop bx
+		 pop ax
+		 ret
+		 
+		cmp_a:
+		
+		mov ch,0  ;row
+			l01:mov cl,20 ;col
+				l2:mov dh, ch
+					mov dl, cl
+					mov bh, 0
+					mov ah, 2
+					int 10h
+					mov bh,0
+					mov ah,08h
+					int 10h
+					cmp al,'a'
+					je ptnt_a
+					add cl,1
+					cmp cl,78
+					jne l2
+				add ch,1
+				cmp ch,24
+				jne l01
+				jmp a_end
+				ptnt_a:		
+		add word[score],10
+		 mov ax,[score]
+		 push ax
+		 call printnum
+		  call beep 
+		mov byte[row_index],ch
+		mov byte[col_index],cl
+		sub byte[col_index],3
+		sub byte[row_index],1
+		mov si,0
+		j1:mov dh, byte[row_index]
+		mov dl, byte[col_index]
+		mov bh, 0
+		mov ah, 2
+		int 10h
+		
+		mov al,'*'
+		mov bh,0
+		mov bl,10001001b
+		mov cx,6
+		mov ah,09h
+		int 10h
+		add byte[row_index],1
+		add si,1
+		cmp si,3
+		jne j1
+		
+		
+		a_end:
+		ret	
 start:
 	call clrscr
 	call main_print
