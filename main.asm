@@ -749,7 +749,58 @@ cmp_z:
 				
 				l_end:
 				ret
+		compare:
+		mov ah,00h
+		int 16h
+		cmp al,'a'
+		je pop_bubble1
+		cmp al,'s'
+		je pop_bubble2
+		cmp al,'g'
+		je pop_bubble3
+		cmp al,'k'
+		je pop_bubble4
+		cmp al,'z'
+		je pop_bubble5
+		cmp al,'l'
+		je pop_bubble6
+		cmp al,'p'
+		je  pop_bubble7
+		jne end
+		;if a is presses the print time and function
+			pop_bubble1:	
+			call cmp_a
+				jmp end
+				
+				
+				pop_bubble2:	
+				call cmp_s
+				jmp end
+				
+				
+				pop_bubble3:	
+				call cmp_g
+				jmp end
+				
+				pop_bubble4:	
+				call cmp_k
+				jmp end
+				
+				pop_bubble5:	
+				call cmp_z
+				jmp end
+				
+				pop_bubble6:	
+			call cmp_l
+				jmp end
+				
+				pop_bubble7:	
+			call cmp_p
+				jmp end
+				
 		
+		end:
+		ret		
 start:
 	call clrscr
 	call main_print
