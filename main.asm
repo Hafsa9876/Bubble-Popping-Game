@@ -800,7 +800,71 @@ cmp_z:
 				
 		
 		end:
-		ret		
+		ret
+	printrec:
+		push bp
+		mov bp,sp
+		sub sp,2
+		sub sp,2
+		sub sp,2
+		push ax
+		push bx
+		push cx
+		push dx
+		push si
+		mov ah,06h
+		mov al,3
+		mov bh,byte[colour]
+		mov ch,byte[top_row]  ;top left row
+		mov cl,byte[top_col]  ;top left col
+		mov dh,25;bottom right row
+		mov dl,byte[bot_col]  ;bottom right col
+		int 10h
+		
+		; alphabet
+		 mov ax, [bp+8]
+		 push ax ; push x position
+		 mov ax, [bp+6]
+		 push ax ; push y position
+		 mov ax, [bp+4] ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, char
+		 push ax ; push address of message
+		push  word [length];; push message length
+		 call printstr 
+	
+		 mov cx,8
+		l1:
+		;check if any key is pressed
+		mov ah,01h
+		int 16h
+		;if pressed jump to check which one is pressed
+		jnz key_pressed
+		;if not then continue
+		jmp cont
+		
+		key_pressed:call compare
+		
+		cont:
+		
+		call scrollup
+		 
+		call update_time
+		
+		sub cx,1
+		jnz l1
+		
+		
+		add sp,6
+		pop si
+		pop dx
+		pop cx
+		pop bx
+		pop ax
+		mov sp,bp
+		pop bp
+		ret 6
+		
 start:
 	call clrscr
 	call main_print
