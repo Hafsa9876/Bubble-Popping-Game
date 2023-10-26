@@ -663,7 +663,40 @@ cmp_z:
 					jne l6
 				add ch,1
 				cmp ch,24
-				jne l05		
+				jne l05	
+		jmp z_end
+						ptnt_z:		
+				add word[score],10
+				
+				 mov ax,[score]
+				 push ax
+				 call printnum
+				  call beep
+				mov byte[row_index],ch
+				mov byte[col_index],cl
+				sub byte[col_index],3
+				sub byte[row_index],1
+				mov si,0
+				j5:mov dh, byte[row_index]
+				mov dl, byte[col_index]
+				mov bh, 0
+				mov ah, 2
+				int 10h
+				
+				mov al,'*'
+				mov bh,0
+				mov bl,10001100b
+				mov cx,6
+				mov ah,09h
+				int 10h
+				add byte[row_index],1
+				add si,1
+				cmp si,3
+				jne j5
+				
+				
+				z_end:
+				ret
 start:
 	call clrscr
 	call main_print
