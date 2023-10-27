@@ -1000,7 +1000,11 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		 mov si, [bp+6] ; point si to string
 		 mov cx, [bp+4] ; load length of string in cx
 		 mov ah, [bp+8] ; load attribute in ah
-
+		 nextchar1: mov al, [si] ; load next char of string
+		 mov [es:di], ax ; show this char on screen
+		 add di, 2 ; move to next screen location
+		 add si, 1 ; move to next char in string
+		 loop nextchar1 ; repeat the operation cx times
 		 pop di
 		 pop si
 		 pop cx
