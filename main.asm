@@ -1089,6 +1089,17 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		cmp bx,18
 		jne loop22
 		mov ax,[Time_m]
+	push ax
+	call printnum_m
+		mov ax,[Time_s1]
+	push ax
+	call printnum_s1
+		mov ax,[Time_s2]
+	push ax
+	call printnum_s2
+		;call update_time
+		pop bx
+		 pop ax
 
 	ret
 start:
