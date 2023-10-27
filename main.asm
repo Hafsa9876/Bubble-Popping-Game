@@ -1030,6 +1030,21 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		 add bx,1
 		 cmp bx,18
 		 jne loop1
+	 
+		 mov bx,3
+	loop2:	 mov ax, bx
+		 push ax ; push x position
+		 mov ax, 8
+		 push ax ; push y position
+		 mov ax, 00001011b ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, msg_sl
+		 push ax ; push address of message
+		push  word [length];; push message length
+		 call printstr 
+		 add bx,1
+		 cmp bx,18
+		 jne loop2
 
 	ret
 start:
