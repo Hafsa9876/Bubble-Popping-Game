@@ -963,6 +963,16 @@ cmp_z:
 		pop cx
 		pop ax
 ret
+main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		push cx
+		mov cx,4   ;2 loop take 68 sec
+		lop1:call print_sc
+		sub cx,1
+		je pp_end
+		loop lop1
+		pp_end:
+		pop cx
+		ret
 start:
 	call clrscr
 	call main_print
