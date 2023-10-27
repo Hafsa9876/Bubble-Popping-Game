@@ -1074,6 +1074,21 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		 mov ax,[score]
 		 push ax
 		 call printnum
+ mov bx,3
+	loop22:	 mov ax, bx
+		 push ax ; push x position
+		 mov ax, 16
+		 push ax ; push y position
+		 mov ax, 00001011b ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, msg_sl
+		 push ax ; push address of message
+		push  word [length];; push message length
+		 call printstr 
+		add bx,1
+		cmp bx,18
+		jne loop22
+		mov ax,[Time_m]
 
 	ret
 start:
