@@ -983,6 +983,31 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		MOV     AH, 86H
 		INT     15H
 		ret
+		printstr: push bp
+		 mov bp, sp
+		 push es
+		 push ax
+		 push cx
+		 push si
+		 push di
+		 mov ax, 0xb800
+		 mov es, ax ; point es to video base
+		 mov al, 80 ; load al with columns per row
+		 mul byte [bp+10] ; multiply with y position
+		 add ax, [bp+12] ; add x position
+		 shl ax, 1 ; turn into byte offset
+		 mov di,ax ; point di to required location
+		 mov si, [bp+6] ; point si to string
+		 mov cx, [bp+4] ; load length of string in cx
+		 mov ah, [bp+8] ; load attribute in ah
+
+		 pop di
+		 pop si
+		 pop cx
+		 pop ax
+		 pop es
+		 pop bp
+		 ret 10 
 start:
 	call clrscr
 	call main_print
