@@ -973,6 +973,16 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		pp_end:
 		pop cx
 		ret
+;;;;;;;;;;;;;;;;time ;;;;;;;;;;;;;;;;;
+		timer:
+		;call update_time
+		call print_t_s
+		call main_print
+		MOV     CX, 0FH ;;these 4 lines when runs at once produce 18.6seconds
+		MOV     DX, 4240H
+		MOV     AH, 86H
+		INT     15H
+		ret
 start:
 	call clrscr
 	call main_print
