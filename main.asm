@@ -1045,6 +1045,35 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		 add bx,1
 		 cmp bx,18
 		 jne loop2
+		 mov bx,3
+	loop11:	 mov ax, bx
+		 push ax ; push x position
+		 mov ax, 12
+		 push ax ; push y position
+		 mov ax, 00001011b ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, msg_sl
+		 push ax ; push address of message
+		push  word [length];; push message length
+		 call printstr 
+		 add bx,1
+		 cmp bx,18
+		 jne loop11
+		 
+		  mov ax,4
+		  push ax ; push x position
+		 mov ax, 14
+		 push ax ; push y position
+		 mov ax, 00001011b ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, msg1
+		 push ax ; push address of message
+		push  word [len1];; push message length
+		 call printstr
+		 ;printing score
+		 mov ax,[score]
+		 push ax
+		 call printnum
 
 	ret
 start:
