@@ -1012,6 +1012,26 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		 pop es
 		 pop bp
 		 ret 10 
+ print_t_s:
+ push ax
+ push bx
+		
+ 	mov bx,3
+	loop1:	 mov ax, bx
+		 push ax ; push x position
+		 mov ax, 4
+		 push ax ; push y position
+		 mov ax, 00001011b ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, msg_sl
+		 push ax ; push address of message
+		 push  word [length];; push message length
+		 call printstr 
+		 add bx,1
+		 cmp bx,18
+		 jne loop1
+
+	ret
 start:
 	call clrscr
 	call main_print
