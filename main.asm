@@ -1102,6 +1102,19 @@ main_print:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		 pop ax
 
 	ret
+game_ending:
+		 push ax
+		 mov ax, 10
+		 push ax ; push x position
+		 mov ax, 4
+		 push ax ; push y position
+		 mov ax,  00111111b ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, e1
+		 push ax ; push address of message
+		push  word [len_over];; push message length
+		 call printstr 
+		ret
 start:
 	call clrscr
 	call main_print
