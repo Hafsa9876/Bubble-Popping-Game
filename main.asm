@@ -1114,6 +1114,17 @@ game_ending:
 		 push ax ; push address of message
 		push  word [len_over];; push message length
 		 call printstr 
+
+		  mov ax, 10
+		 push ax ; push x position
+		 mov ax, 5
+		 push ax ; push y position
+		 mov ax,  00111111b ; blue on black attribute
+		 push ax ; push attribute
+		 mov ax, e2
+		 push ax ; push address of message
+		push  word [len_over];; push message length
+		 call printstr
 		ret
 start:
 	call clrscr
